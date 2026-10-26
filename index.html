@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đề kiểm tra giữa HKI - Đề 2 - Vật lí 10 - THPT Lê Quý Đôn</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX CSS & JS để render công thức Vật lí & Vectơ chuẩn xác -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: linear-gradient(135deg, #fdf2f8 0%, #f0f9ff 100%);
+      color: #0f172a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .quote-border {
+      border-left: 4px solid #db2777;
+    }
+    .char-input:focus {
+      border-color: #db2777;
+      box-shadow: 0 0 0 3px rgba(219, 39, 119, 0.25);
+    }
+    .katex {
+      font-size: 1.08em;
+    }
+    .katex-display {
+      margin: 0.5em 0;
+    }
+    .option-card:hover {
+      border-color: #f472b6;
+      background-color: #fdf2f8;
+    }
+    @keyframes popAnim {
+      0% { transform: scale(0.98); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .pop {
+      animation: popAnim 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen pb-24">
+
+  <!-- TOP HEADER / NAV BAR -->
+  <header class="w-full bg-white/95 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50 px-4 py-2.5 shadow-xs">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-pink-600 animate-pulse"></span>
+        <span class="font-bold text-xs sm:text-sm text-slate-800 tracking-tight">THPT LÊ QUÝ ĐÔN</span>
+        <span class="text-slate-300">•</span>
+        <span class="text-xs font-semibold text-pink-700 bg-pink-50 border border-pink-200 px-2 py-0.5 rounded-full">ĐỀ 2</span>
+      </div>
+
+      <!-- ĐỒNG HỒ ĐẾM NGƯỢC, NÚT ÂM THANH & NỘP BÀI -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Nút Âm Thanh Bật/Tắt -->
+        <button id="sound-btn" onclick="toggleSound()" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs transition cursor-pointer" title="Bật/Tắt âm thanh hiệu ứng">
+          <span id="sound-icon">🔊</span>
+          <span id="sound-text" class="hidden sm:inline">Âm thanh</span>
+        </button>
+
+        <div class="flex items-center gap-1.5 bg-sky-50 text-sky-800 px-3 py-1 rounded-lg text-xs font-mono font-bold border border-sky-200">
+          <span>⏱️</span>
+          <span id="timer-display">45:00</span>
+        </div>
+        
+        <button onclick="confirmSubmit()" class="bg-gradient-to-r from-pink-600 to-rose-600 hover:from-pink-700 hover:to-rose-700 text-white font-bold text-xs px-3.5 py-1.5 rounded-lg shadow-sm transition active:scale-95 cursor-pointer">
+          Nộp bài
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- KHUNG NỘI DUNG CHÍNH -->
+  <main class="max-w-4xl mx-auto px-4 pt-6 space-y-6">
+
+    <!-- THÔNG TIN ĐỀ & THÍ SINH -->
+    <div class="bg-white rounded-2xl p-5 sm:p-6 border border-pink-100 shadow-sm space-y-4">
+      <div class="text-center pb-3 border-b border-slate-100 space-y-1">
+        <p class="text-[11px] font-bold tracking-widest text-pink-600 uppercase">TRƯỜNG THPT LÊ QUÝ ĐÔN • TỔ VẬT LÍ – CÔNG NGHỆ</p>
+        <h1 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">ĐỀ KIỂM TRA GIỮA HỌC KÌ I - ĐỀ 2</h1>
+        <p class="text-xs text-slate-500 font-medium">Môn: Vật lí khối 10 • Thời gian: 45 phút (không kể thời gian giao đề)</p>
+      </div>
+
+      <div class="quote-border bg-pink-50/70 p-3.5 rounded-r-xl text-xs text-slate-800 leading-relaxed font-medium">
+        📌 <strong>Quy định làm bài:</strong> Đề thi gồm 4 phần: Trắc nghiệm 4 lựa chọn, Trắc nghiệm Đúng/Sai, Trả lời ngắn (điền 4 ký tự) và Tự luận (chụp ảnh bài làm hoặc tải ảnh). Hệ thống sẽ <strong>hoàn toàn ẩn đáp án</strong> trong lúc làm bài. Bảng điểm và lời giải chi tiết sẽ hiển thị ngay sau khi nộp bài.
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Họ và tên học sinh: <span class="text-pink-600">*</span></label>
+          <input type="text" id="student-name" placeholder="Ví dụ: Trần Thị Mai" class="w-full text-xs sm:text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-pink-400/30 focus:border-pink-500 transition bg-slate-50/50">
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-600 mb-1">Số báo danh / Lớp: <span class="text-pink-600">*</span></label>
+          <input type="text" id="student-id" placeholder="Ví dụ: SBD 1025 - Lớp 10A2" class="w-full text-xs sm:text-sm border border-slate-200 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-sky-400/30 focus:border-sky-500 transition bg-slate-50/50">
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- PHẦN I: 12 CÂU TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN LỰA CHỌN (3,0 ĐIỂM) -->
+    <!-- ============================================================== -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 border border-pink-100 shadow-sm space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <span class="bg-pink-100 text-pink-700 text-[11px] font-extrabold px-2.5 py-1 rounded-md uppercase">Phần I</span>
+          <h2 class="text-base font-bold text-slate-800 mt-1.5">Câu trắc nghiệm nhiều phương án lựa chọn (12 câu)</h2>
+          <p class="text-xs text-slate-500">Mỗi câu chỉ chọn một phương án. Thí sinh bấm chọn trực tiếp vào ô đáp án.</p>
+        </div>
+        <span class="text-xs font-bold text-pink-600 bg-pink-50 border border-pink-200 px-3 py-1 rounded-full whitespace-nowrap">3,0 điểm</span>
+      </div>
+
+      <div id="part1-container" class="space-y-6">
+        <!-- Render 12 câu bằng JavaScript -->
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- PHẦN II: CÂU TRẮC NGHIỆM ĐÚNG / SAI (2,0 ĐIỂM)                 -->
+    <!-- ============================================================== -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 border border-sky-100 shadow-sm space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <span class="bg-sky-100 text-sky-700 text-[11px] font-extrabold px-2.5 py-1 rounded-md uppercase">Phần II</span>
+          <h2 class="text-base font-bold text-slate-800 mt-1.5">Câu hỏi Đúng / Sai (2 câu)</h2>
+          <p class="text-xs text-slate-500">Thí sinh bấm chọn nút [Đúng] hoặc [Sai] cho từng ý a), b), c), d).</p>
+        </div>
+        <span class="text-xs font-bold text-sky-600 bg-sky-50 border border-sky-200 px-3 py-1 rounded-full whitespace-nowrap">2,0 điểm</span>
+      </div>
+
+      <div id="part2-container" class="space-y-6">
+        <!-- Render câu 13 & 14 bằng JavaScript -->
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- PHẦN III: TRẮC NGHIỆM TRẢ LỜI NGẮN (2,0 ĐIỂM)                  -->
+    <!-- ============================================================== -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 border border-pink-100 shadow-sm space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <span class="bg-rose-100 text-rose-700 text-[11px] font-extrabold px-2.5 py-1 rounded-md uppercase">Phần III</span>
+          <h2 class="text-base font-bold text-slate-800 mt-1.5">Câu trắc nghiệm trả lời ngắn (4 câu: Câu 15 - 18)</h2>
+          <p class="text-xs text-slate-500">Nhập kết quả vào 4 ô vuông ký tự bên dưới mỗi câu (tự động chuyển tiếp khi gõ số hoặc dấu phẩy).</p>
+        </div>
+        <span class="text-xs font-bold text-rose-600 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full whitespace-nowrap">2,0 điểm</span>
+      </div>
+
+      <div id="part3-container" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <!-- Render câu 15 - 18 bằng JavaScript -->
+      </div>
+    </section>
+
+    <!-- ============================================================== -->
+    <!-- PHẦN IV: TỰ LUẬN CHỤP ẢNH BÀI LÀM (3,0 ĐIỂM)                   -->
+    <!-- ============================================================== -->
+    <section class="bg-white rounded-2xl p-5 sm:p-6 border border-cyan-100 shadow-sm space-y-6">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <span class="bg-cyan-100 text-cyan-800 text-[11px] font-extrabold px-2.5 py-1 rounded-md uppercase">Phần IV</span>
+          <h2 class="text-base font-bold text-slate-800 mt-1.5">Phần Tự luận (Câu 19 & Câu 20)</h2>
+          <p class="text-xs text-slate-500">Học sinh làm bài ra giấy thi, chụp ảnh trực tiếp bằng điện thoại hoặc tải ảnh chụp bài làm lên hệ thống.</p>
+        </div>
+        <span class="text-xs font-bold text-cyan-700 bg-cyan-50 border border-cyan-200 px-3 py-1 rounded-full whitespace-nowrap">3,0 điểm</span>
+      </div>
+
+      <div id="part4-container" class="space-y-6">
+        <!-- Render Câu 19 & Câu 20 bằng JavaScript -->
+      </div>
+    </section>
+
+    <!-- NÚT NỘP BÀI CUỐI TRANG -->
+    <div class="text-center pt-3">
+      <button onclick="confirmSubmit()" class="w-full sm:w-80 py-3.5 bg-gradient-to-r from-pink-600 via-rose-600 to-sky-600 hover:opacity-95 text-white font-black text-sm sm:text-base rounded-2xl shadow-lg shadow-pink-500/25 active:scale-98 transition cursor-pointer">
+        Hoàn thành & Nộp bài kiểm tra 🚀
+      </button>
+      <p class="text-[11px] text-slate-400 mt-2 font-medium">Hệ thống sẽ chấm điểm tự động và xuất báo cáo kết quả chi tiết.</p>
+    </div>
+
+  </main>
+
+  <!-- ============================================================== -->
+  <!-- MODAL BÁO CÁO KẾT QUẢ ĐIỂM SỐ SAU KHI NỘP BÀI                  -->
+  <!-- ============================================================== -->
+  <div id="result-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-7 space-y-5 shadow-2xl border border-pink-100 my-8 pop">
+      
+      <!-- HEADER MODAL -->
+      <div class="flex items-start justify-between border-b border-slate-100 pb-4">
+        <div>
+          <span class="text-[11px] font-extrabold text-pink-600 uppercase tracking-widest">KẾT QUẢ BÀI THI CHÍNH THỨC</span>
+          <h3 class="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">BÁO CÁO KIỂM TRA GIỮA KÌ I - ĐỀ 2</h3>
+          <p class="text-xs text-slate-500" id="res-timestamp">Thời gian: ...</p>
+        </div>
+        <div class="text-right">
+          <div class="text-3xl sm:text-4xl font-black text-pink-600" id="res-total-score">0.0</div>
+          <span class="text-[11px] font-bold text-slate-400 uppercase">Thang điểm 10</span>
+        </div>
+      </div>
+
+      <!-- THÔNG TIN HỌC SINH -->
+      <div class="grid grid-cols-2 gap-3 bg-slate-50 p-3.5 rounded-xl text-xs border border-slate-100">
+        <div>
+          <span class="text-slate-400 block font-medium">Học sinh:</span>
+          <span class="font-bold text-slate-800 text-sm" id="res-name">-</span>
+        </div>
+        <div>
+          <span class="text-slate-400 block font-medium">Số báo danh / Lớp:</span>
+          <span class="font-bold text-slate-800 text-sm" id="res-id">-</span>
+        </div>
+      </div>
+
+      <!-- BẢNG ĐIỂM TỪNG PHẦN -->
+      <div class="space-y-2.5">
+        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Chi tiết điểm thành phần</h4>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+          <div class="p-2.5 rounded-xl bg-pink-50 border border-pink-100">
+            <span class="text-[10px] font-semibold text-pink-600 block">Phần I (Trắc nghiệm)</span>
+            <span class="font-black text-base text-pink-700" id="res-score-p1">0 / 3.0</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-sky-50 border border-sky-100">
+            <span class="text-[10px] font-semibold text-sky-600 block">Phần II (Đúng/Sai)</span>
+            <span class="font-black text-base text-sky-700" id="res-score-p2">0 / 2.0</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-100">
+            <span class="text-[10px] font-semibold text-rose-600 block">Phần III (Trả lời ngắn)</span>
+            <span class="font-black text-base text-rose-700" id="res-score-p3">0 / 2.0</span>
+          </div>
+          <div class="p-2.5 rounded-xl bg-cyan-50 border border-cyan-100">
+            <span class="text-[10px] font-semibold text-cyan-700 block">Phần IV (Tự luận ảnh)</span>
+            <span class="font-black text-base text-cyan-800" id="res-score-p4">Đã chụp</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ĐÁNH GIÁ VÀ HƯỚNG DẪN GIẢI -->
+      <div class="space-y-2 text-xs">
+        <h4 class="font-bold text-slate-700 uppercase tracking-wider">Nhận xét của hệ thống</h4>
+        <div id="res-evaluation" class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950 font-medium leading-relaxed">
+          -
+        </div>
+      </div>
+
+      <!-- LỜI GIẢI CHI TIẾT TỰ ĐỘNG HIỆN SAU KHI NỘP -->
+      <div class="space-y-3 text-xs max-h-60 overflow-y-auto p-3.5 bg-slate-50 rounded-xl border border-slate-200" id="res-solutions-container">
+        <!-- Render lời giải chi tiết -->
+      </div>
+
+      <!-- CÁC NÚT THAO TÁC -->
+      <div class="pt-2 flex flex-col sm:flex-row gap-2">
+        <button onclick="copyReport()" class="flex-1 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-xl text-xs transition active:scale-98 shadow-sm cursor-pointer">
+          📋 Sao chép kết quả gửi giáo viên
+        </button>
+        <button onclick="window.print()" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs transition cursor-pointer">
+          🖨️ In bài
+        </button>
+        <button onclick="closeModalAndReview()" class="px-5 py-3 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl text-xs transition cursor-pointer">
+          Đóng & Xem lại bài
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT XỬ LÝ TOÀN BỘ LOGIC BÀI THI -->
+  <script>
+    /* ==============================================================
+       1. ÂM THANH WEB AUDIO API (KHÔNG CẦN TỆP NGOÀI)
+       ============================================================== */
+    let audioContext = null;
+    let isSoundMuted = false;
+
+    function getAudioContext() {
+      if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      if (audioContext.state === 'suspended') {
+        audioContext.resume();
+      }
+      return audioContext;
+    }
+
+    function toggleSound() {
+      isSoundMuted = !isSoundMuted;
+      document.getElementById('sound-icon').innerText = isSoundMuted ? '🔇' : '🔊';
+      document.getElementById('sound-text').innerText = isSoundMuted ? 'Tắt' : 'Bật';
+      const btn = document.getElementById('sound-btn');
+      if (isSoundMuted) {
+        btn.classList.add('opacity-50');
+      } else {
+        btn.classList.remove('opacity-50');
+        playAudioTone('tadaa');
+      }
+    }
+
+    function playAudioTone(type) {
+      if (isSoundMuted) return;
+      try {
+        const ctx = getAudioContext();
+        const now = ctx.currentTime;
+
+        if (type === 'click') {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(600, now);
+          gain.gain.setValueAtTime(0.04, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else if (type === 'tadaa') {
+          const notes = [523.25, 659.25, 783.99, 1046.50];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            gain.gain.setValueAtTime(0, now + idx * 0.08);
+            gain.gain.linearRampToValueAtTime(0.18, now + idx * 0.08 + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+            osc.start(now + idx * 0.08);
+            osc.stop(now + idx * 0.08 + 0.35);
+          });
+        }
+      } catch (err) {
+        console.warn("Lỗi audio:", err);
+      }
+    }
+
+    /* ==============================================================
+       2. NGÂN HÀNG CÂU HỎI ĐỀ 2 (ĐÃ LƯỢC BỎ TOÀN BỘ KÝ HIỆU NB, TH, VD)
+       ============================================================== */
+    const EXAM_DATA = {
+      // PHẦN I: 12 CÂU TRẮC NGHIỆM (0,25đ/câu = 3,0đ)
+      part1: [
+        {
+          id: 1,
+          q: "Trong một bài thực hành, gia tốc rơi tự do được tính theo công thức $g = \\frac{2h}{t^2}$. Sai số tuyệt đối của phép đo trên tính theo công thức nào?",
+          options: [
+            "$\\Delta g = \\bar{g} \\cdot \\left( \\frac{\\Delta h}{\\bar{h}} + \\frac{2\\Delta t}{\\bar{t}} \\right)$",
+            "$\\Delta g = \\bar{g} \\cdot \\left( \\frac{\\Delta h}{\\bar{h}} + \\frac{\\Delta t}{\\bar{t}} \\right)$",
+            "$\\Delta g = \\bar{g} \\cdot \\left( \\frac{\\Delta h}{\\bar{h}} - \\frac{2\\Delta t}{\\bar{t}} \\right)$",
+            "$\\Delta g = \\bar{g} \\cdot \\left( \\frac{2\\Delta h}{\\bar{h}} + \\frac{2\\Delta t}{\\bar{t}} \\right)$"
+          ],
+          correct: 0,
+          explain: "Ta có sai số tỉ đối: $\\delta g = \\frac{\\Delta g}{\\bar{g}} = \\frac{\\Delta h}{\\bar{h}} + 2\\frac{\\Delta t}{\\bar{t}} \\Rightarrow \\Delta g = \\bar{g} \\cdot \\left( \\frac{\\Delta h}{\\bar{h}} + \\frac{2\\Delta t}{\\bar{t}} \\right)$."
+        },
+        {
+          id: 2,
+          q: "Nêu các phương pháp nghiên cứu thường được sử dụng trong Vật lí?",
+          options: [
+            "Phương pháp thực nghiệm và phương pháp mô hình.",
+            "Phương pháp thực nghiệm, phương pháp mô hình, phương pháp quan sát và suy luận.",
+            "Phương pháp thực nghiệm, phương pháp quan sát và suy luận.",
+            "Phương pháp mô hình, phương pháp quan sát và suy luận."
+          ],
+          correct: 0,
+          explain: "Các phương pháp nghiên cứu thường được sử dụng của Vật lí là phương pháp thực nghiệm và phương pháp mô hình."
+        },
+        {
+          id: 3,
+          q: "Biển báo dưới đây có ý nghĩa gì?",
+          hasGraph: "graph_c3_flame",
+          options: [
+            "Cho phép sử dụng lửa.",
+            "Cảnh báo bề mặt nóng.",
+            "Cảnh báo nguy cơ dễ cháy.",
+            "Cảnh báo chất độc."
+          ],
+          correct: 2,
+          explain: "Biển báo hình tam giác viền đen, nền vàng có hình ngọn lửa đặt trên thanh ngang màu đen (chuẩn ISO 7010 W021) cảnh báo vật liệu / nguy cơ dễ cháy."
+        },
+        {
+          id: 4,
+          q: "Khi sử dụng các thiết bị điện trong phòng thí nghiệm Vật Lí chúng ta cần lưu ý điều gì?",
+          options: [
+            "Cần quan sát kĩ các kí hiệu và nhãn thông số trên thiết bị để sử dụng đúng chức năng, đúng yêu cầu kĩ thuật.",
+            "Khởi động hệ thống và tiến hành thí nghiệm.",
+            "Quan sát các kí hiệu rồi khởi động hệ thống để tiến hành thí nghiệm.",
+            "Không cần sử dụng đúng chức năng của thiết bị."
+          ],
+          correct: 0,
+          explain: "Khi sử dụng thiết bị điện cần quan sát kĩ kí hiệu, nhãn thông số để dùng đúng chức năng và an toàn kĩ thuật."
+        },
+        {
+          id: 5,
+          q: "Công thức vận tốc tức thời trong chuyển động thẳng biến đổi đều là:",
+          options: [
+            "$v = v_0 + at^2$",
+            "$v = v_0 + a \\cdot t$",
+            "$v = v_0 - a \\cdot t$",
+            "$v = -v_0 + at$"
+          ],
+          correct: 1,
+          explain: "Công thức vận tốc tức thời theo thời gian trong chuyển động thẳng biến đổi đều là $v = v_0 + at$."
+        },
+        {
+          id: 6,
+          q: "Hai anh em bơi trong bể bơi thiếu niên có chiều dài $25\\text{ m}$. Hai anh em xuất phát từ đầu bể bơi đến cuối bể bơi thì người em dừng lại nghỉ, còn người anh quay lại bơi tiếp về đầu bể mới nghỉ. Tính độ dịch chuyển của hai anh em?",
+          options: [
+            "Độ dịch chuyển của người anh là $25\\text{ m}$, người em là $50\\text{ m}$.",
+            "Độ dịch chuyển của người anh là $50\\text{ m}$, người em là $25\\text{ m}$.",
+            "Độ dịch chuyển của người anh là $0\\text{ m}$, người em là $25\\text{ m}$.",
+            "Độ dịch chuyển của người anh là $25\\text{ m}$, người em là $25\\text{ m}$."
+          ],
+          correct: 2,
+          explain: "Người em bơi từ đầu bể tới cuối bể: $d_{\\text{em}} = 25\\text{ m}$. Người anh bơi từ đầu bể tới cuối bể rồi quay lại đầu bể (điểm đầu trùng điểm cuối): $d_{\\text{anh}} = 0\\text{ m}$."
+        },
+        {
+          id: 7,
+          q: "Tốc độ trung bình là:",
+          options: [
+            "đại lượng đặc trưng cho độ nhanh, chậm của chuyển động.",
+            "đại lượng được đo bằng thương số của độ dịch chuyển và thời gian dịch chuyển.",
+            "cho biết hướng của chuyển động.",
+            "cho biết tốc độ của chuyển động tại một thời điểm."
+          ],
+          correct: 0,
+          explain: "Tốc độ trung bình là đại lượng vô hướng đặc trưng cho độ nhanh, chậm của chuyển động trên cả quãng đường: $v_{tb} = s/t$."
+        },
+        {
+          id: 8,
+          q: "Khi đo lực kéo tác dụng lên vật có khối lượng $m$, kết quả thu được là $F = 10,25 \\pm 0,05\\text{ N}$ thì:",
+          options: [
+            "Sai số tuyệt đối của phép đo là $0,05\\text{ N}$.",
+            "Sai số tương đối của phép đo là $0,05\\%$.",
+            "Giá trị trung bình của phép đo là $0,05\\text{ N}$.",
+            "Kết quả chính xác của phép đo là $10,30\\text{ N}$."
+          ],
+          correct: 0,
+          explain: "Kết quả viết dưới dạng $A = \\bar{A} \\pm \\Delta A$. Ở đây $\\bar{F} = 10,25\\text{ N}$ và sai số tuyệt đối $\\Delta F = 0,05\\text{ N}$."
+        },
+        {
+          id: 9,
+          q: "Một người bơi hết bể bơi dài $50\\text{ m}$ rồi quay đầu bơi theo chiều ngược lại hết $\\frac{1}{2}$ chiều dài bể với thời gian $20\\text{ s}$. Hỏi lúc đó người này có vận tốc trung bình là bao nhiêu?",
+          options: [
+            "$1,25\\text{ m/s}$",
+            "$-1,25\\text{ m/s}$",
+            "$2,5\\text{ m/s}$",
+            "$-2,5\\text{ m/s}$"
+          ],
+          correct: 0,
+          explain: "Độ dịch chuyển: $d = 50 - 25 = 25\\text{ m}$. Vận tốc trung bình: $v_{tb} = \\frac{d}{t} = \\frac{25}{20} = 1,25\\text{ m/s}$."
+        },
+        {
+          id: 10,
+          q: "Chọn đáp án đúng biểu diễn biểu thức gia tốc (dạng vectơ chuẩn):",
+          options: [
+            "$\\vec{a} = \\frac{\\Delta \\vec{v}}{\\Delta t}$",
+            "$a = \\frac{\\Delta \\vec{v}}{\\Delta t}$",
+            "$\\vec{a} = \\frac{\\Delta v}{\\Delta t}$",
+            "$\\vec{a} = \\frac{\\Delta \\vec{d}}{\\Delta t}$"
+          ],
+          correct: 0,
+          explain: "Gia tốc là đại lượng vectơ đặc trưng cho sự biến thiên của vận tốc: $\\vec{a} = \\frac{\\Delta \\vec{v}}{\\Delta t}$."
+        },
+        {
+          id: 11,
+          q: "Vật chuyển động nhanh dần đều có đặc điểm nào sau đây?",
+          options: [
+            "$a \\cdot v = 0$",
+            "$a \\cdot v > 0$",
+            "$a \\cdot v < 0$",
+            "$a \\cdot v \\neq 0$"
+          ],
+          correct: 1,
+          explain: "Chuyển động thẳng nhanh dần đều có vectơ gia tốc cùng chiều với vectơ vận tốc nên tích đại số $a \\cdot v > 0$."
+        },
+        {
+          id: 12,
+          q: "Đồ thị vận tốc – thời gian nào sau đây mô tả chuyển động có độ lớn của gia tốc là LỚN NHẤT?",
+          hasGraph: "graph_c12_4graphs",
+          options: [
+            "Đồ thị A",
+            "Đồ thị B",
+            "Đồ thị C",
+            "Đồ thị D"
+          ],
+          correct: 3,
+          explain: "Gia tốc có độ lớn bằng độ dốc của đồ thị $v - t$. Đồ thị D dốc nhất (độ nghiêng so với trục Ot lớn nhất) nên độ lớn gia tốc là lớn nhất."
+        }
+      ],
+
+      // PHẦN II: TRẮC NGHIỆM ĐÚNG/SAI (2 câu x 1,0đ = 2,0đ)
+      part2: [
+        {
+          id: 13,
+          title: "Câu 13: Đồ thị độ dịch chuyển – thời gian trong chuyển động thẳng của một vật được vẽ ở hình dưới. Xét tính Đúng/Sai của các phát biểu sau:",
+          hasGraph: "graph_c13_dt",
+          items: [
+            { text: "a) Từ giây thứ 2 đến giây thứ 4 vật chuyển động thẳng đều.", correct: false, explain: "Từ $t = 2\\text{ s}$ đến $t = 4\\text{ s}$, đồ thị là đoạn nằm ngang ($d = 4\\text{ m}$ không đổi), nghĩa là vật đứng yên (vận tốc $v = 0$)." },
+            { text: "b) Độ dốc của đồ thị độ dịch chuyển – thời gian trong chuyển động thẳng cho biết độ lớn vận tốc chuyển động.", correct: true, explain: "Hệ số góc (độ dốc) của đường $d - t$ bằng độ lớn vận tốc $v = \\left|\\frac{\\Delta d}{\\Delta t}\\right|$." },
+            { text: "c) Trong 2 s đầu vận tốc của vật là $2\\text{ m/s}$.", correct: true, explain: "Trong $2\\text{ s}$ đầu: $v = \\frac{4 - 0}{2 - 0} = 2\\text{ m/s}$." },
+            { text: "d) Độ dịch chuyển của xe sau 10 giây chuyển động là $-1\\text{ m}$.", correct: true, explain: "Tại thời điểm $t = 10\\text{ s}$, tung độ đồ thị nằm đúng ở vạch $d = -1\\text{ m}$." }
+          ]
+        },
+        {
+          id: 14,
+          title: "Câu 14: Xét tính Đúng/Sai của các phát biểu sau:",
+          items: [
+            { text: "a) Tốc độ trung bình cho biết độ nhanh chậm của chuyển động.", correct: true, explain: "Tốc độ trung bình đặc trưng cho độ nhanh chậm của chuyển động trên cả quãng đường." },
+            { text: "b) Vận tốc trung bình được xác định bởi công thức: $v = \\frac{d}{t}$.", correct: true, explain: "Độ lớn vận tốc trung bình bằng độ dịch chuyển chia cho thời gian." },
+            { text: "c) Vật đang chuyển động thì hãm phanh chuyển động chậm dần, lúc này gia tốc ngược hướng vận tốc.", correct: true, explain: "Chuyển động chậm dần đều có vectơ gia tốc ngược chiều với vectơ vận tốc ($a \\cdot v < 0$)." },
+            { text: "d) Các kết quả từ AI luôn đúng.", correct: false, explain: "AI là công cụ học tập và có thể xuất hiện sai sót; người học cần có kiến thức kiểm chứng." }
+          ]
+        }
+      ],
+
+      // PHẦN III: TRẢ LỜI NGẮN (4 câu: Câu 15 - 18 x 0,5đ = 2,0đ)
+      part3: [
+        {
+          id: 15,
+          q: "Một người bơi ngang từ bờ bên này sang bờ bên kia của một dòng sông rộng $50\\text{ m}$ có dòng chảy hướng từ Bắc đến Nam. Do nước sông chảy mạnh nên khi sang đến bờ bên kia thì người đó đã trôi xuôi theo dòng nước $50\\text{ m}$. Xác định độ lớn độ dịch chuyển của người đó theo mét? (Làm tròn đến 1 chữ số thập phân).",
+          acceptedAnswers: ["70,7", "70.7", "070,7", "070.7"],
+          explain: "Độ dịch chuyển tổng hợp: $d = \\sqrt{50^2 + 50^2} = 50\\sqrt{2} \\approx 70,71\\text{ m} \\Rightarrow 70,7\\text{ m}$."
+        },
+        {
+          id: 16,
+          q: "Hình bên là đồ thị vận tốc – thời gian của một thang máy khi đi từ tầng 1 lên tầng 3 của toà nhà chung cư. Tính gia tốc của thang máy trong $0,5\\text{ s}$ đầu tiên theo đơn vị $\\text{m/s}^2$?",
+          hasGraph: "graph_c16_elevator",
+          acceptedAnswers: ["4", "4.0", "4,0", "0004"],
+          explain: "Trong $0,5\\text{ s}$ đầu: vận tốc tăng đều từ $0$ lên $2\\text{ m/s}$. Gia tốc: $a = \\frac{v - v_0}{t} = \\frac{2 - 0}{0,5} = 4\\text{ m/s}^2$."
+        },
+        {
+          id: 17,
+          q: "Một đoàn tàu đang chạy với vận tốc $72\\text{ km/h}$ thì hãm phanh chạy chậm dần, sau $10\\text{ s}$ vận tốc giảm xuống còn $15\\text{ m/s}$. Hỏi phải hãm phanh trong bao lâu kể từ khi tàu có vận tốc $72\\text{ km/h}$ thì tàu dừng hẳn (coi gia tốc không đổi) theo đơn vị giây?",
+          acceptedAnswers: ["40", "40.0", "40,0", "0040"],
+          explain: "Đổi $72\\text{ km/h} = 20\\text{ m/s}$.\nGia tốc hãm phanh: $a = \\frac{15 - 20}{10} = -0,5\\text{ m/s}^2$.\nThời gian kể từ khi hãm đến khi dừng hẳn ($v = 0$): $t = \\frac{0 - 20}{-0,5} = 40\\text{ s}$."
+        },
+        {
+          id: 18,
+          q: "Một người đang chạy xe ô tô thì nhìn vào đồng hồ đo tốc độ (tốc kế), kim đồng hồ chỉ như ảnh ($90\\text{ km/h}$). Tốc độ tức thời của vật theo đơn vị m/s là bao nhiêu?",
+          hasGraph: "graph_c18_speedometer",
+          acceptedAnswers: ["25", "25.0", "25,0", "0025"],
+          explain: "Kim tốc kế chỉ $90\\text{ km/h}$. Đổi sang $\\text{m/s}$: $v = \\frac{90}{3,6} = 25\\text{ m/s}$."
+        }
+      ],
+
+      // PHẦN IV: TỰ LUẬN CHỤP ẢNH BÀI LÀM (3,0 ĐIỂM)
+      part4: [
+        {
+          id: 19,
+          points: 1.5,
+          title: "Câu 19 (1,5 điểm):",
+          q: "Đồ thị bên dưới mô tả sự thay đổi vận tốc theo thời gian trong chuyển động của một vật đang chuyển động từ A đến B:\na. Mô tả chuyển động của vật.\nb. Gia tốc của ô tô từ giây thứ 12 đến giây thứ 20 là bao nhiêu?",
+          hasGraph: "graph_c19_vt",
+          solution: "a. Mô tả chuyển động:\n- Từ 0 đến 4 s: Chuyển động thẳng nhanh dần đều từ 0 lên 20 m/s với a = 5 m/s².\n- Từ 4 s đến 12 s: Chuyển động thẳng đều với vận tốc không đổi v = 20 m/s (a = 0).\n- Từ 12 s đến 20 s: Chuyển động thẳng chậm dần đều từ 20 m/s về 0 m/s.\n- Từ 20 s đến 28 s: Chuyển động thẳng nhanh dần đều theo chiều âm từ 0 đến -20 m/s.\n\nb. Gia tốc từ giây thứ 12 đến giây thứ 20:\na = (v20 - v12) / (20 - 12) = (0 - 20) / 8 = -2,5 m/s²."
+        },
+        {
+          id: 20,
+          points: 1.5,
+          title: "Câu 20 (1,5 điểm):",
+          q: "Quan sát đồ thị độ dịch chuyển – thời gian ở Hình 7.3:\na) Mô tả các chuyển động (I), (II) và (III).\nb) Tính vận tốc của vật (III) theo đơn vị km/h.",
+          hasGraph: "graph_c20_3lines",
+          solution: "a. Mô tả các chuyển động:\n- Vật (I): Xuất phát từ gốc tọa độ O lúc t = 0, chuyển động thẳng đều theo chiều dương với vận tốc v1 = 180 / 3 = 60 km/h.\n- Vật (II): Xuất phát từ vị trí cách gốc 180 km lúc t = 0, chuyển động thẳng đều ngược chiều dương về gốc tọa độ O với vận tốc v2 = (0 - 180) / 3 = -60 km/h.\n- Vật (III): Xuất phát từ gốc O lúc t = 0, chuyển động thẳng đều theo chiều dương với vận tốc v3 = (60 - 0) / 3 = 20 km/h.\n\nb. Vận tốc của vật (III):\nv3 = Δd / Δt = (60 - 0) / (3 - 0) = 20 km/h."
+        }
+      ]
+    };
+
+    /* ==============================================================
+       3. TRẠNG THÁI LÀM BÀI CỦA HỌC SINH
+       ============================================================== */
+    const userAnswers = {
+      part1: {},
+      part2: {},
+      part3: {},
+      part4: {
+        images: {},
+        notes: {}
+      }
+    };
+
+    let timeLeft = 45 * 60; // 45 phút = 2700s
+    let timerInterval = null;
+    let isSubmitted = false;
+
+    /* ==============================================================
+       4. HÀM VẼ ĐỒ THỊ VÀ HÌNH VẼ SVG CHUẨN XÁC TỪNG TỌA ĐỘ
+       ============================================================== */
+    function getSvgGraphic(type) {
+      if (type === "graph_c3_flame") {
+        // HÌNH VẼ BIỂN BÁO CÂU 3: Tam giác đều nền vàng viền đen dày, ngọn lửa đen uốn lượn sắc sảo trên thanh ngang
+        return `
+          <div class="flex justify-center my-3">
+            <svg width="170" height="150" viewBox="0 0 170 150" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-2">
+              <!-- Tam giác ngoài viền đen dày bo tròn góc -->
+              <polygon points="85,10 162,140 8,140" fill="#0f172a" stroke="#0f172a" stroke-width="4" stroke-linejoin="round" />
+              <!-- Nền vàng tam giác bên trong -->
+              <polygon points="85,22 150,132 20,132" fill="#fde047" stroke="#fde047" stroke-width="2" stroke-linejoin="round" />
+              <!-- Viền đen trong mảnh tạo độ tương phản tiêu chuẩn ISO -->
+              <polygon points="85,27 145,129 25,129" fill="none" stroke="#0f172a" stroke-width="2.5" stroke-linejoin="round" />
+              
+              <!-- Ngọn lửa màu đen uốn lượn chi tiết theo file đề -->
+              <path d="M 85 45 
+                       C 87 56 94 62 96 71 
+                       C 98 81 92 88 95 96 
+                       C 97 101 101 104 105 106 
+                       C 107 107 108 109 108 111 
+                       C 108 115 105 118 100 119
+                       L 70 119
+                       C 65 118 62 115 62 111
+                       C 62 107 65 103 69 99
+                       C 73 95 72 88 70 82
+                       C 67 74 61 68 62 58
+                       C 63 53 66 49 69 46
+                       C 68 53 71 58 75 62
+                       C 78 57 80 50 85 45 Z" 
+                    fill="#0f172a" />
+              
+              <!-- Ngọn lửa con lõm ở giữa ngọn lửa chính -->
+              <path d="M 85 75 
+                       C 89 83 91 90 89 97 
+                       C 87 102 83 105 81 110 
+                       L 89 110 
+                       C 89 106 87 103 86 100 
+                       C 84 94 88 88 88 83 
+                       C 88 79 86 76 85 75 Z" 
+                    fill="#fde047" />
+
+              <!-- Thanh ngang màu đen dưới chân ngọn lửa -->
+              <rect x="60" y="122" width="50" height="4.5" rx="2" fill="#0f172a" />
+            </svg>
+          </div>
+        `;
+      } else if (type === "graph_c12_4graphs") {
+        return `
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 my-3">
+            <!-- Đồ thị A -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 text-center">
+              <svg width="120" height="95" viewBox="0 0 120 95" class="mx-auto">
+                <line x1="20" y1="75" x2="110" y2="75" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="110,72 117,75 110,78" fill="#0f172a" />
+                <text x="106" y="90" font-size="10" font-weight="bold">t</text>
+
+                <line x1="20" y1="75" x2="20" y2="12" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="17,12 20,5 23,12" fill="#0f172a" />
+                <text x="7" y="16" font-size="10" font-weight="bold">v</text>
+                <text x="9" y="86" font-size="9" fill="#64748b">O</text>
+
+                <line x1="20" y1="35" x2="95" y2="35" stroke="#94a3b8" stroke-dasharray="2,2" />
+                <line x1="20" y1="50" x2="95" y2="50" stroke="#db2777" stroke-width="2.6" />
+              </svg>
+              <span class="text-xs font-bold text-slate-700">Đồ thị A</span>
+            </div>
+
+            <!-- Đồ thị B -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 text-center">
+              <svg width="120" height="95" viewBox="0 0 120 95" class="mx-auto">
+                <line x1="20" y1="75" x2="110" y2="75" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="110,72 117,75 110,78" fill="#0f172a" />
+                <text x="106" y="90" font-size="10" font-weight="bold">t</text>
+
+                <line x1="20" y1="75" x2="20" y2="12" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="17,12 20,5 23,12" fill="#0f172a" />
+                <text x="7" y="16" font-size="10" font-weight="bold">v</text>
+                <text x="9" y="86" font-size="9" fill="#64748b">O</text>
+
+                <line x1="20" y1="45" x2="95" y2="45" stroke="#94a3b8" stroke-dasharray="2,2" />
+                <line x1="20" y1="45" x2="95" y2="22" stroke="#db2777" stroke-width="2.6" />
+              </svg>
+              <span class="text-xs font-bold text-slate-700">Đồ thị B</span>
+            </div>
+
+            <!-- Đồ thị C -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 text-center">
+              <svg width="120" height="95" viewBox="0 0 120 95" class="mx-auto">
+                <line x1="20" y1="75" x2="110" y2="75" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="110,72 117,75 110,78" fill="#0f172a" />
+                <text x="106" y="90" font-size="10" font-weight="bold">t</text>
+
+                <line x1="20" y1="75" x2="20" y2="12" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="17,12 20,5 23,12" fill="#0f172a" />
+                <text x="7" y="16" font-size="10" font-weight="bold">v</text>
+                <text x="9" y="86" font-size="9" fill="#64748b">O</text>
+
+                <line x1="20" y1="45" x2="95" y2="45" stroke="#94a3b8" stroke-dasharray="2,2" />
+                <line x1="20" y1="45" x2="95" y2="35" stroke="#db2777" stroke-width="2.6" />
+              </svg>
+              <span class="text-xs font-bold text-slate-700">Đồ thị C</span>
+            </div>
+
+            <!-- Đồ thị D (dốc đứng nhất -> gia tốc lớn nhất) -->
+            <div class="bg-white p-2 rounded-xl border border-slate-200 text-center ring-2 ring-pink-400/40">
+              <svg width="120" height="95" viewBox="0 0 120 95" class="mx-auto">
+                <line x1="20" y1="75" x2="110" y2="75" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="110,72 117,75 110,78" fill="#0f172a" />
+                <text x="106" y="90" font-size="10" font-weight="bold">t</text>
+
+                <line x1="20" y1="75" x2="20" y2="12" stroke="#0f172a" stroke-width="1.8" />
+                <polygon points="17,12 20,5 23,12" fill="#0f172a" />
+                <text x="7" y="16" font-size="10" font-weight="bold">v</text>
+                <text x="9" y="86" font-size="9" fill="#64748b">O</text>
+
+                <line x1="20" y1="35" x2="95" y2="35" stroke="#94a3b8" stroke-dasharray="2,2" />
+                <line x1="20" y1="35" x2="65" y2="75" stroke="#db2777" stroke-width="3" />
+              </svg>
+              <span class="text-xs font-bold text-pink-700">Đồ thị D</span>
+            </div>
+          </div>
+        `;
+      } else if (type === "graph_c13_dt") {
+        // ĐỒ THỊ CÂU 13: ĐÚNG TỈ LỆ TOÁN HỌC TỪNG Ô LƯỚI TỌA ĐỘ
+        // Trục hoành t: 0 đến 10 s (mỗi 1s = 28px). x_origin = 45, x_max = 45 + 10*28 = 325
+        // Trục tung d: -1 đến 4 m (mỗi 1m = 28px). y_d0 = 145 (d=0), y_d4 = 145 - 4*28 = 33, y_dm1 = 145 + 28 = 173
+        return `
+          <div class="flex justify-center my-3 overflow-x-auto">
+            <svg width="380" height="235" viewBox="0 0 380 235" class="bg-white rounded-2xl border-2 border-slate-200 shadow-md p-1">
+              <!-- VẼ TOÀN BỘ LƯỚI TỌA ĐỘ NÉT ĐỨT CHUẨN XÁC TỪNG Ô -->
+              <!-- Các đường dọc tại t = 0..10 s -->
+              ${[0,1,2,3,4,5,6,7,8,9,10].map(i => {
+                const x = 45 + i * 28;
+                return `<line x1="${x}" y1="33" x2="${x}" y2="173" stroke="#94a3b8" stroke-width="1.1" stroke-dasharray="3,3" />`;
+              }).join('')}
+
+              <!-- Các đường ngang tại d = -1, 0, 1, 2, 3, 4 m -->
+              ${[-1, 0, 1, 2, 3, 4].map(j => {
+                const y = 145 - j * 28;
+                return `<line x1="45" y1="${y}" x2="325" y2="${y}" stroke="#94a3b8" stroke-width="1.1" stroke-dasharray="3,3" />`;
+              }).join('')}
+
+              <!-- TRỤC HOÀNH t(s) TẠI d = 0 (y = 145) NÉT XANH ĐẬM CÓ MŨI TÊN -->
+              <line x1="35" y1="145" x2="355" y2="145" stroke="#0284c7" stroke-width="2.6" stroke-linecap="round" />
+              <polygon points="353,140 367,145 353,150" fill="#0284c7" />
+              <text x="350" y="172" font-size="14" font-weight="900" fill="#0284c7">t (s)</text>
+
+              <!-- TRỤC TUNG d(m) TẠI t = 0 (x = 45) NÉT XANH ĐẬM CÓ MŨI TÊN -->
+              <line x1="45" y1="195" x2="45" y2="18" stroke="#0284c7" stroke-width="2.6" stroke-linecap="round" />
+              <polygon points="40,18 45,6 50,18" fill="#0284c7" />
+              <text x="8" y="22" font-size="14" font-weight="900" fill="#0284c7">d (m)</text>
+
+              <!-- GỐC O (t=0, d=0) -->
+              <text x="28" y="163" font-size="13" font-weight="800" fill="#475569">0</text>
+
+              <!-- CÁC SỐ MỐC TRỤC TUNG d(m) -->
+              <text x="28" y="121" font-size="12" font-weight="700" fill="#1e293b">1</text>
+              <text x="28" y="93" font-size="12" font-weight="700" fill="#1e293b">2</text>
+              <text x="28" y="65" font-size="12" font-weight="700" fill="#1e293b">3</text>
+              <text x="28" y="37" font-size="12" font-weight="700" fill="#1e293b">4</text>
+              <text x="22" y="177" font-size="12" font-weight="700" fill="#1e293b">-1</text>
+
+              <!-- CÁC SỐ MỐC TRỤC HOÀNH t(s) -->
+              <text x="70" y="165" font-size="12" font-weight="700" fill="#1e293b">1</text>
+              <text x="98" y="165" font-size="12" font-weight="700" fill="#1e293b">2</text>
+              <text x="126" y="165" font-size="12" font-weight="700" fill="#1e293b">3</text>
+              <text x="154" y="165" font-size="12" font-weight="700" fill="#1e293b">4</text>
+              <text x="182" y="165" font-size="12" font-weight="700" fill="#1e293b">5</text>
+              <text x="210" y="165" font-size="12" font-weight="700" fill="#1e293b">6</text>
+              <text x="238" y="165" font-size="12" font-weight="700" fill="#1e293b">7</text>
+              <text x="266" y="165" font-size="12" font-weight="700" fill="#1e293b">8</text>
+              <text x="294" y="165" font-size="12" font-weight="700" fill="#1e293b">9</text>
+              <text x="318" y="165" font-size="12" font-weight="700" fill="#1e293b">10</text>
+
+              <!-- ĐƯỜNG ĐỒ THỊ CHUYỂN ĐỘNG d-t XANH DƯƠNG ĐẬM RÕ NÉT -->
+              <!-- (0,0) -> (2s, 4m) -> (4s, 4m) -> (8s, 0m) -> (9s, -1m) -> (10s, -1m) -->
+              <!-- Tọa độ pixel tương ứng: (45, 145) -> (101, 33) -> (157, 33) -> (269, 145) -> (297, 173) -> (325, 173) -->
+              <polyline points="45,145 101,33 157,33 269,145 297,173 325,173" 
+                fill="none" stroke="#0284c7" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" />
+              
+              <!-- Các điểm tròn nhấn mốc tọa độ -->
+              <circle cx="45" cy="145" r="3.5" fill="#0284c7" />
+              <circle cx="101" cy="33" r="3.5" fill="#0284c7" />
+              <circle cx="157" cy="33" r="3.5" fill="#0284c7" />
+              <circle cx="269" cy="145" r="3.5" fill="#0284c7" />
+              <circle cx="297" cy="173" r="3.5" fill="#0284c7" />
+              <circle cx="325" cy="173" r="3.5" fill="#0284c7" />
+            </svg>
+          </div>
+        `;
+      } else if (type === "graph_c16_elevator") {
+        return `
+          <div class="flex justify-center my-3">
+            <svg width="250" height="180" viewBox="0 0 250 180" class="bg-white rounded-xl border border-slate-200 shadow-xs">
+              <defs>
+                <pattern id="grid16" width="30" height="25" patternUnits="userSpaceOnUse">
+                  <path d="M 30 0 L 0 0 0 25" fill="none" stroke="#e2e8f0" stroke-dasharray="2,2" stroke-width="1" />
+                </pattern>
+              </defs>
+              <rect x="35" y="20" width="180" height="125" fill="url(#grid16)" />
+
+              <line x1="35" y1="145" x2="235" y2="145" stroke="#0f172a" stroke-width="2" />
+              <polygon points="235,142 243,145 235,148" fill="#0f172a" />
+              <text x="228" y="165" font-size="11" font-weight="bold">t (s)</text>
+
+              <line x1="35" y1="145" x2="35" y2="15" stroke="#0f172a" stroke-width="2" />
+              <polygon points="32,15 35,7 38,15" fill="#0f172a" />
+              <text x="8" y="20" font-size="11" font-weight="bold">v (m/s)</text>
+              <text x="20" y="158" font-size="11" fill="#64748b">O</text>
+
+              <text x="18" y="99" font-size="11" font-weight="bold" fill="#334155">1</text>
+              <text x="18" y="49" font-size="11" font-weight="bold" fill="#334155">2</text>
+
+              <text x="90" y="162" font-size="11" font-weight="bold" fill="#334155">1</text>
+              <text x="150" y="162" font-size="11" font-weight="bold" fill="#334155">2</text>
+              <text x="210" y="162" font-size="11" font-weight="bold" fill="#334155">3</text>
+
+              <line x1="65" y1="145" x2="65" y2="45" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3" />
+              <line x1="185" y1="145" x2="185" y2="45" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3" />
+              <line x1="35" y1="45" x2="65" y2="45" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="3,3" />
+
+              <polyline points="35,145 65,45 185,45 215,145" fill="none" stroke="#db2777" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        `;
+      } else if (type === "graph_c18_speedometer") {
+        return `
+          <div class="flex justify-center my-3">
+            <svg width="260" height="150" viewBox="0 0 260 150" class="bg-slate-900 rounded-2xl border-2 border-slate-700 shadow-md">
+              <path d="M 30 130 A 100 100 0 0 1 230 130" fill="none" stroke="#1e293b" stroke-width="16" stroke-linecap="round" />
+              <path d="M 30 130 A 100 100 0 0 1 230 130" fill="none" stroke="#22c55e" stroke-width="3" stroke-dasharray="4,6" />
+
+              <text x="35" y="125" font-size="11" font-weight="bold" fill="#22c55e">0</text>
+              <text x="36" y="90" font-size="11" font-weight="bold" fill="#22c55e">20</text>
+              <text x="52" y="60" font-size="11" font-weight="bold" fill="#22c55e">40</text>
+              <text x="80" y="40" font-size="11" font-weight="bold" fill="#22c55e">60</text>
+              <text x="118" y="32" font-size="12" font-weight="black" fill="#f43f5e">80</text>
+              <text x="156" y="40" font-size="11" font-weight="bold" fill="#22c55e">100</text>
+              <text x="186" y="60" font-size="11" font-weight="bold" fill="#22c55e">120</text>
+              <text x="200" y="90" font-size="11" font-weight="bold" fill="#22c55e">140</text>
+
+              <text x="115" y="75" font-size="10" font-weight="bold" fill="#94a3b8">km/h</text>
+
+              <rect x="95" y="90" width="70" height="18" rx="3" fill="#064e3b" stroke="#047857" />
+              <text x="105" y="103" font-size="11" font-family="monospace" font-weight="bold" fill="#4ade80">90 km/h</text>
+
+              <circle cx="130" cy="130" r="10" fill="#f43f5e" />
+              <line x1="130" y1="130" x2="144" y2="42" stroke="#ef4444" stroke-width="3.5" stroke-linecap="round" />
+              <circle cx="130" cy="130" r="4" fill="#ffffff" />
+            </svg>
+          </div>
+        `;
+      } else if (type === "graph_c19_vt") {
+        return `
+          <div class="flex justify-center my-3">
+            <svg width="340" height="210" viewBox="0 0 340 210" class="bg-white rounded-2xl border border-slate-300 shadow-sm p-1">
+              <defs>
+                <pattern id="grid19" width="30" height="25" patternUnits="userSpaceOnUse">
+                  <path d="M 30 0 L 0 0 0 25" fill="none" stroke="#e2e8f0" stroke-width="0.8" />
+                </pattern>
+              </defs>
+              <rect x="40" y="15" width="270" height="165" fill="url(#grid19)" />
+
+              <line x1="30" y1="115" x2="320" y2="115" stroke="#0f172a" stroke-width="2" />
+              <polygon points="320,112 328,115 320,118" fill="#0f172a" />
+              <text x="316" y="132" font-size="11" font-weight="bold">t(s)</text>
+
+              <line x1="40" y1="195" x2="40" y2="15" stroke="#0f172a" stroke-width="2" />
+              <polygon points="37,15 40,7 43,15" fill="#0f172a" />
+              <text x="6" y="20" font-size="11" font-weight="bold">v(m/s)</text>
+
+              <text x="24" y="128" font-size="10" fill="#64748b">0</text>
+
+              <text x="18" y="55" font-size="10" font-weight="bold" fill="#334155">20</text>
+              <text x="18" y="85" font-size="10" font-weight="bold" fill="#334155">10</text>
+              <text x="12" y="150" font-size="10" font-weight="bold" fill="#334155">-10</text>
+              <text x="12" y="180" font-size="10" font-weight="bold" fill="#334155">-20</text>
+
+              <text x="72" y="130" font-size="10" fill="#334155">4</text>
+              <text x="107" y="130" font-size="10" fill="#334155">8</text>
+              <text x="140" y="130" font-size="10" font-weight="bold" fill="#0284c7">12</text>
+              <text x="175" y="130" font-size="10" fill="#334155">16</text>
+              <text x="208" y="130" font-size="10" font-weight="bold" fill="#0284c7">20</text>
+              <text x="244" y="130" font-size="10" fill="#334155">24</text>
+              <text x="280" y="130" font-size="10" fill="#334155">28</text>
+
+              <line x1="40" y1="50" x2="145" y2="50" stroke="#94a3b8" stroke-dasharray="3,3" />
+              <line x1="75" y1="115" x2="75" y2="50" stroke="#94a3b8" stroke-dasharray="3,3" />
+              <line x1="145" y1="115" x2="145" y2="50" stroke="#94a3b8" stroke-dasharray="3,3" />
+              <line x1="285" y1="115" x2="285" y2="175" stroke="#94a3b8" stroke-dasharray="3,3" />
+              <line x1="40" y1="175" x2="285" y2="175" stroke="#94a3b8" stroke-dasharray="3,3" />
+
+              <polyline points="40,115 75,50 145,50 215,115 285,175" 
+                fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        `;
+      } else if (type === "graph_c20_3lines") {
+        return `
+          <div class="flex justify-center my-3">
+            <svg width="270" height="260" viewBox="0 0 270 260" class="bg-white rounded-2xl border-2 border-slate-300 shadow-sm p-1">
+              <defs>
+                <pattern id="grid20" width="55" height="55" patternUnits="userSpaceOnUse">
+                  <path d="M 55 0 L 0 0 0 55" fill="none" stroke="#cbd5e1" stroke-dasharray="3,3" stroke-width="1.2" />
+                </pattern>
+              </defs>
+              <rect x="45" y="25" width="165" height="165" fill="url(#grid20)" />
+
+              <line x1="45" y1="190" x2="245" y2="190" stroke="#0f172a" stroke-width="2.4" />
+              <polygon points="245,186 255,190 245,194" fill="#0f172a" />
+              <text x="240" y="210" font-size="12" font-weight="bold">t (h)</text>
+
+              <line x1="45" y1="190" x2="45" y2="15" stroke="#0f172a" stroke-width="2.4" />
+              <polygon points="41,15 45,5 49,15" fill="#0f172a" />
+              <text x="8" y="20" font-size="12" font-weight="bold">d (km)</text>
+              <text x="26" y="204" font-size="12" fill="#64748b">O</text>
+
+              <text x="96" y="208" font-size="12" font-weight="bold" fill="#334155">1</text>
+              <text x="151" y="208" font-size="12" font-weight="bold" fill="#334155">2</text>
+              <text x="206" y="208" font-size="12" font-weight="bold" fill="#334155">3</text>
+
+              <text x="18" y="140" font-size="12" font-weight="bold" fill="#334155">60</text>
+              <text x="12" y="85" font-size="12" font-weight="bold" fill="#334155">120</text>
+              <text x="12" y="30" font-size="12" font-weight="bold" fill="#334155">180</text>
+
+              <line x1="45" y1="190" x2="210" y2="25" stroke="#0f172a" stroke-width="2.8" stroke-linecap="round" />
+              <text x="215" y="30" font-size="13" font-weight="extrabold" fill="#0f172a">(I)</text>
+
+              <line x1="45" y1="25" x2="210" y2="190" stroke="#0f172a" stroke-width="2.8" stroke-linecap="round" />
+              <text x="215" y="195" font-size="13" font-weight="extrabold" fill="#0f172a">(II)</text>
+
+              <line x1="45" y1="190" x2="210" y2="135" stroke="#0f172a" stroke-width="2.8" stroke-linecap="round" />
+              <text x="215" y="140" font-size="13" font-weight="extrabold" fill="#0f172a">(III)</text>
+            </svg>
+          </div>
+        `;
+      }
+      return "";
+    }
+
+    /* ==============================================================
+       5. RENDER BÀI KIỂM TRA (ĐÃ BỎ KÝ HIỆU NB, TH, VD)
+       ============================================================== */
+    function renderQuiz() {
+      // 1. RENDER PHẦN I (12 CÂU)
+      const p1Box = document.getElementById("part1-container");
+      p1Box.innerHTML = "";
+      EXAM_DATA.part1.forEach((item) => {
+        const letters = ["A", "B", "C", "D"];
+        let optionsHtml = item.options.map((opt, optIndex) => `
+          <label class="option-card flex items-start gap-3 p-3 rounded-xl border border-slate-200 transition cursor-pointer text-xs sm:text-sm text-slate-700 font-medium">
+            <input type="radio" name="p1_q${item.id}" value="${optIndex}" onchange="selectOptionP1(${item.id}, ${optIndex})" class="mt-0.5 text-pink-600 focus:ring-pink-500 cursor-pointer">
+            <span class="font-bold text-slate-500">${letters[optIndex]}.</span>
+            <span class="flex-1 leading-relaxed">${opt}</span>
+          </label>
+        `).join("");
+
+        const qCard = document.createElement("div");
+        qCard.className = "p-4 sm:p-5 rounded-2xl bg-slate-50/70 border border-slate-100 space-y-2.5";
+        qCard.innerHTML = `
+          <div class="flex items-start gap-2">
+            <span class="bg-pink-600 text-white font-black text-[11px] px-2 py-0.5 rounded-md shrink-0">Câu ${item.id}</span>
+            <p class="font-bold text-xs sm:text-sm text-slate-900 leading-relaxed whitespace-pre-line">${item.q}</p>
+          </div>
+          ${item.hasGraph ? getSvgGraphic(item.hasGraph) : ""}
+          <div class="space-y-2 pt-1">${optionsHtml}</div>
+        `;
+        p1Box.appendChild(qCard);
+      });
+
+      // 2. RENDER PHẦN II (ĐÚNG/SAI)
+      const p2Box = document.getElementById("part2-container");
+      p2Box.innerHTML = "";
+      EXAM_DATA.part2.forEach(qItem => {
+        let itemsHtml = qItem.items.map((sub, sIndex) => `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border border-slate-200 bg-white gap-2">
+            <span class="text-xs sm:text-sm font-medium text-slate-800 leading-relaxed flex-1">${sub.text}</span>
+            <div class="flex items-center gap-2 shrink-0">
+              <button type="button" id="btn_tf_${qItem.id}_${sIndex}_t" onclick="setTrueFalse(${qItem.id}, ${sIndex}, true)" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                Đúng
+              </button>
+              <button type="button" id="btn_tf_${qItem.id}_${sIndex}_f" onclick="setTrueFalse(${qItem.id}, ${sIndex}, false)" class="px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-100 transition cursor-pointer">
+                Sai
+              </button>
+            </div>
+          </div>
+        `).join("");
+
+        const card = document.createElement("div");
+        card.className = "p-4 sm:p-5 rounded-2xl bg-sky-50/50 border border-sky-100 space-y-3";
+        card.innerHTML = `
+          <h3 class="font-bold text-xs sm:text-sm text-sky-950">${qItem.title}</h3>
+          ${qItem.hasGraph ? getSvgGraphic(qItem.hasGraph) : ""}
+          <div class="space-y-2.5">${itemsHtml}</div>
+        `;
+        p2Box.appendChild(card);
+      });
+
+      // 3. RENDER PHẦN III (TRẢ LỜI NGẮN 4 Ô ĐIỀN)
+      const p3Box = document.getElementById("part3-container");
+      p3Box.innerHTML = "";
+      EXAM_DATA.part3.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "p-4 sm:p-5 rounded-2xl bg-rose-50/40 border border-rose-100 space-y-3 flex flex-col justify-between";
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="bg-rose-600 text-white font-black text-[11px] px-2 py-0.5 rounded-md">Câu ${item.id}</span>
+              <span class="text-[11px] text-rose-700 font-semibold">Trả lời ngắn</span>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-800 font-semibold leading-relaxed whitespace-pre-line">${item.q}</p>
+            ${item.hasGraph ? getSvgGraphic(item.hasGraph) : ""}
+          </div>
+          
+          <div class="pt-2 border-t border-rose-100">
+            <label class="block text-[11px] font-bold text-slate-500 mb-1.5">Nhập 4 ký tự kết quả:</label>
+            <div class="flex items-center gap-2" id="box_group_${item.id}">
+              <input type="text" maxlength="1" class="char-input w-11 h-11 text-center font-black text-base bg-white border-2 border-slate-300 rounded-xl text-slate-800 uppercase transition" oninput="handleCharInput(this, ${item.id}, 0)" onkeydown="handleCharKeydown(event, this, ${item.id}, 0)">
+              <input type="text" maxlength="1" class="char-input w-11 h-11 text-center font-black text-base bg-white border-2 border-slate-300 rounded-xl text-slate-800 uppercase transition" oninput="handleCharInput(this, ${item.id}, 1)" onkeydown="handleCharKeydown(event, this, ${item.id}, 1)">
+              <input type="text" maxlength="1" class="char-input w-11 h-11 text-center font-black text-base bg-white border-2 border-slate-300 rounded-xl text-slate-800 uppercase transition" oninput="handleCharInput(this, ${item.id}, 2)" onkeydown="handleCharKeydown(event, this, ${item.id}, 2)">
+              <input type="text" maxlength="1" class="char-input w-11 h-11 text-center font-black text-base bg-white border-2 border-slate-300 rounded-xl text-slate-800 uppercase transition" oninput="handleCharInput(this, ${item.id}, 3)" onkeydown="handleCharKeydown(event, this, ${item.id}, 3)">
+            </div>
+          </div>
+        `;
+        p3Box.appendChild(card);
+      });
+
+      // 4. RENDER PHẦN IV (TỰ LUẬN CHỤP ẢNH)
+      const p4Box = document.getElementById("part4-container");
+      p4Box.innerHTML = "";
+      EXAM_DATA.part4.forEach(item => {
+        const card = document.createElement("div");
+        card.className = "p-4 sm:p-5 rounded-2xl bg-cyan-50/40 border border-cyan-100 space-y-3.5";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <h3 class="font-extrabold text-xs sm:text-sm text-cyan-950">${item.title}</h3>
+            <span class="text-xs text-cyan-700 font-bold">${item.points} điểm</span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium whitespace-pre-line">${item.q}</p>
+          ${item.hasGraph ? getSvgGraphic(item.hasGraph) : ""}
+          
+          <!-- KHU VỰC CHỤP ẢNH / TẢI ẢNH BÀI LÀM TỰ LUẬN -->
+          <div class="pt-3 border-t border-cyan-100 space-y-3">
+            <label class="block text-xs font-bold text-cyan-900">📸 Nộp ảnh chụp bài làm tự luận:</label>
+            
+            <div class="flex flex-wrap items-center gap-2">
+              <label class="px-4 py-2 bg-gradient-to-r from-cyan-600 to-sky-600 hover:from-cyan-700 hover:to-sky-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-xs active:scale-95">
+                <span>📷 Chụp ảnh / Tải ảnh lên</span>
+                <input type="file" accept="image/*" capture="environment" onchange="handleImageUpload(event, ${item.id})" class="hidden">
+              </label>
+
+              <button type="button" id="btn_clear_img_${item.id}" onclick="clearImage(${item.id})" class="hidden px-3 py-2 border border-rose-200 text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-xl text-xs font-bold transition cursor-pointer">
+                🗑️ Xóa ảnh
+              </button>
+            </div>
+
+            <!-- Khung Preview Ảnh -->
+            <div id="preview_container_${item.id}" class="hidden p-3 bg-white rounded-xl border border-dashed border-cyan-200 text-center">
+              <p class="text-[11px] text-slate-400 font-medium mb-2">Ảnh bài làm đã chọn:</p>
+              <img id="preview_img_${item.id}" src="" alt="Ảnh bài làm" class="max-h-80 mx-auto rounded-lg shadow-sm border border-slate-100 object-contain">
+            </div>
+
+            <!-- Ô nhập ghi chú bổ sung (tuỳ chọn) -->
+            <div class="pt-1">
+              <label class="block text-[11px] font-bold text-slate-500 mb-1">Ghi chú hoặc lời giải tóm tắt (không bắt buộc):</label>
+              <textarea rows="2" placeholder="Nếu hình ảnh chụp bị mờ, em có thể gõ thêm đáp số hoặc diễn giải ngắn vào đây..." onchange="saveEssayNote(${item.id}, this.value)" class="w-full text-xs p-2.5 border border-slate-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-cyan-400/30 focus:border-cyan-500 transition resize-none"></textarea>
+            </div>
+          </div>
+        `;
+        p4Box.appendChild(card);
+      });
+
+      triggerMathRender();
+    }
+
+    function triggerMathRender() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      } else {
+        setTimeout(triggerMathRender, 150);
+      }
+    }
+
+    /* ==============================================================
+       6. XỬ LÝ SỰ KIỆN TƯƠNG TÁC & TẢI ẢNH TỰ LUẬN
+       ============================================================== */
+    function selectOptionP1(qId, optIndex) {
+      userAnswers.part1[qId] = optIndex;
+      playAudioTone('click');
+    }
+
+    function setTrueFalse(qId, subIndex, val) {
+      playAudioTone('click');
+      const key = `${qId}_${subIndex}`;
+      userAnswers.part2[key] = val;
+
+      const btnT = document.getElementById(`btn_tf_${qId}_${subIndex}_t`);
+      const btnF = document.getElementById(`btn_tf_${qId}_${subIndex}_f`);
+
+      if (val === true) {
+        btnT.className = "px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white font-bold text-xs shadow-xs transition";
+        btnF.className = "px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-400 bg-white transition";
+      } else {
+        btnT.className = "px-3.5 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-400 bg-white transition";
+        btnF.className = "px-3.5 py-1.5 rounded-lg bg-rose-600 text-white font-bold text-xs shadow-xs transition";
+      }
+    }
+
+    function handleCharInput(input, qId, boxIndex) {
+      const container = document.getElementById(`box_group_${qId}`);
+      const inputs = container.querySelectorAll("input");
+      if (input.value.length === 1 && boxIndex < 3) {
+        inputs[boxIndex + 1].focus();
+      }
+      let str = "";
+      inputs.forEach(inp => { str += inp.value; });
+      userAnswers.part3[qId] = str.trim();
+    }
+
+    function handleCharKeydown(e, input, qId, boxIndex) {
+      const container = document.getElementById(`box_group_${qId}`);
+      const inputs = container.querySelectorAll("input");
+      if (e.key === "Backspace" && !input.value && boxIndex > 0) {
+        inputs[boxIndex - 1].focus();
+      }
+    }
+
+    function handleImageUpload(e, itemId) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const base64Str = evt.target.result;
+        userAnswers.part4.images[itemId] = base64Str;
+
+        const previewContainer = document.getElementById(`preview_container_${itemId}`);
+        const previewImg = document.getElementById(`preview_img_${itemId}`);
+        const clearBtn = document.getElementById(`btn_clear_img_${itemId}`);
+
+        previewImg.src = base64Str;
+        previewContainer.classList.remove('hidden');
+        clearBtn.classList.remove('hidden');
+        playAudioTone('tadaa');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearImage(itemId) {
+      delete userAnswers.part4.images[itemId];
+      document.getElementById(`preview_container_${itemId}`).classList.add('hidden');
+      document.getElementById(`preview_img_${itemId}`).src = '';
+      document.getElementById(`btn_clear_img_${itemId}`).classList.add('hidden');
+      playAudioTone('click');
+    }
+
+    function saveEssayNote(itemId, val) {
+      userAnswers.part4.notes[itemId] = val.trim();
+    }
+
+    /* ==============================================================
+       7. ĐỒNG HỒ ĐẾM NGƯỢC 45 PHÚT
+       ============================================================== */
+    function startTimer() {
+      const display = document.getElementById("timer-display");
+      timerInterval = setInterval(() => {
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert("⏰ Đã hết thời gian 45 phút! Hệ thống sẽ tự động thu bài kiểm tra.");
+          submitExam();
+          return;
+        }
+        timeLeft--;
+        const m = Math.floor(timeLeft / 60);
+        const s = timeLeft % 60;
+        display.innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
+      }, 1000);
+    }
+
+    /* ==============================================================
+       8. CHẤM ĐIỂM & BÁO CÁO KẾT QUẢ CHI TIẾT
+       ============================================================== */
+    function confirmSubmit() {
+      const name = document.getElementById("student-name").value.trim();
+      const sbd = document.getElementById("student-id").value.trim();
+      if (!name || !sbd) {
+        alert("⚠️ Em vui lòng nhập đầy đủ Họ và tên cùng Số báo danh/Lớp ở đầu trang trước khi nộp bài!");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      if (confirm("Em có chắc chắn muốn nộp bài kiểm tra không? Sau khi nộp điểm bài thi sẽ được hiển thị ngay.")) {
+        submitExam();
+      }
+    }
+
+    function submitExam() {
+      isSubmitted = true;
+      if (timerInterval) clearInterval(timerInterval);
+      playAudioTone('tadaa');
+
+      // Chấm Phần I (12 câu, mỗi câu 0.25đ => tối đa 3.0đ)
+      let scoreP1 = 0;
+      let solutionsHtml = `<div class="font-bold text-slate-800 text-sm border-b pb-1.5 mb-2">ĐÁP ÁN & GIẢI THÍCH CHI TIẾT:</div>`;
+      
+      solutionsHtml += `<div class="font-bold text-pink-700 text-xs mb-1">Phần I: Trắc nghiệm 4 lựa chọn</div><ul class="space-y-1.5 mb-3">`;
+      EXAM_DATA.part1.forEach(item => {
+        const letters = ["A", "B", "C", "D"];
+        const userChoice = userAnswers.part1[item.id];
+        const isRight = userChoice === item.correct;
+        if (isRight) scoreP1 += 0.25;
+
+        solutionsHtml += `
+          <li class="p-2 rounded-lg ${isRight ? 'bg-emerald-50 border border-emerald-200' : 'bg-rose-50 border border-rose-200'}">
+            <strong>Câu ${item.id}:</strong> Đáp án đúng là <strong>${letters[item.correct]}</strong>. Em chọn: <strong>${userChoice !== undefined ? letters[userChoice] : 'Chưa làm'}</strong>.
+            <div class="text-slate-600 mt-0.5 text-[11px]">${item.explain}</div>
+          </li>
+        `;
+      });
+      solutionsHtml += `</ul>`;
+
+      // Chấm Phần II (2 câu, mỗi câu 1.0đ chia theo số ý đúng: 1 ý=0.1, 2 ý=0.25, 3 ý=0.5, 4 ý=1.0đ)
+      let scoreP2 = 0;
+      solutionsHtml += `<div class="font-bold text-sky-700 text-xs mb-1">Phần II: Câu hỏi Đúng/Sai</div><ul class="space-y-2 mb-3">`;
+      EXAM_DATA.part2.forEach(qItem => {
+        let correctCount = 0;
+        let subDetails = "";
+        qItem.items.forEach((sub, sIndex) => {
+          const key = `${qItem.id}_${sIndex}`;
+          const userVal = userAnswers.part2[key];
+          const isRight = userVal === sub.correct;
+          if (isRight) correctCount++;
+          
+          subDetails += `
+            <div class="text-[11px] mt-0.5 ${isRight ? 'text-emerald-700' : 'text-rose-700'}">
+              • ${sub.text} ➔ Đáp án đúng: <strong>${sub.correct ? 'ĐÚNG' : 'SAI'}</strong> (Em chọn: ${userVal === undefined ? 'Chưa chọn' : (userVal ? 'ĐÚNG' : 'SAI')})
+              ${sub.explain ? `<span class="block text-slate-500 italic">↳ ${sub.explain}</span>` : ''}
+            </div>
+          `;
+        });
+        
+        let subScore = 0;
+        if (correctCount === 1) subScore = 0.1;
+        else if (correctCount === 2) subScore = 0.25;
+        else if (correctCount === 3) subScore = 0.5;
+        else if (correctCount === 4) subScore = 1.0;
+        scoreP2 += subScore;
+
+        solutionsHtml += `
+          <li class="p-2.5 rounded-lg bg-sky-50 border border-sky-200">
+            <strong>${qItem.title}</strong> (Đạt: ${subScore.toFixed(2)}/1.0 đ)
+            ${subDetails}
+          </li>
+        `;
+      });
+      solutionsHtml += `</ul>`;
+
+      // Chấm Phần III (4 câu x 0.5đ = 2.0đ)
+      let scoreP3 = 0;
+      solutionsHtml += `<div class="font-bold text-rose-700 text-xs mb-1">Phần III: Trả lời ngắn</div><ul class="space-y-1.5 mb-3">`;
+      EXAM_DATA.part3.forEach(item => {
+        const rawAns = (userAnswers.part3[item.id] || "").trim().toLowerCase();
+        const normAns = rawAns.replace(',', '.');
+        const isMatched = item.acceptedAnswers.some(ok => {
+          const normOk = ok.toLowerCase().replace(',', '.');
+          return normOk === normAns || ok.toLowerCase() === rawAns;
+        });
+        if (isMatched) scoreP3 += 0.5;
+
+        solutionsHtml += `
+          <li class="p-2 rounded-lg ${isMatched ? 'bg-emerald-50 border border-emerald-200' : 'bg-rose-50 border border-rose-200'}">
+            <strong>Câu ${item.id}:</strong> Đáp án đúng: <strong>${item.acceptedAnswers[0]}</strong>. Em nhập: <strong>${rawAns || 'Chưa nhập'}</strong>.
+            <div class="text-slate-600 mt-0.5 text-[11px]">${item.explain}</div>
+          </li>
+        `;
+      });
+      solutionsHtml += `</ul>`;
+
+      // Phần IV: Hướng dẫn giải tự luận
+      solutionsHtml += `<div class="font-bold text-cyan-800 text-xs mb-1">Phần IV: Lời giải gợi ý Tự luận (Giáo viên chấm)</div><ul class="space-y-2">`;
+      EXAM_DATA.part4.forEach(item => {
+        solutionsHtml += `
+          <li class="p-2.5 rounded-lg bg-cyan-50 border border-cyan-200">
+            <strong>${item.title}</strong>
+            <pre class="text-[11px] text-slate-700 mt-1 whitespace-pre-line font-sans">${item.solution}</pre>
+          </li>
+        `;
+      });
+      solutionsHtml += `</ul>`;
+
+      const imageCount = Object.keys(userAnswers.part4.images).length;
+      const noteCount = Object.keys(userAnswers.part4.notes).length;
+      const essaySubmitted = (imageCount > 0) || (noteCount > 0);
+      const objectiveScore = Math.round((scoreP1 + scoreP2 + scoreP3) * 10) / 10;
+
+      // Cập nhật kết quả lên Modal
+      document.getElementById("res-name").innerText = document.getElementById("student-name").value.trim();
+      document.getElementById("res-id").innerText = document.getElementById("student-id").value.trim();
+      document.getElementById("res-timestamp").innerText = `Ngày nộp: ${new Date().toLocaleString('vi-VN')}`;
+
+      document.getElementById("res-score-p1").innerText = `${scoreP1.toFixed(2)} / 3.0`;
+      document.getElementById("res-score-p2").innerText = `${scoreP2.toFixed(2)} / 2.0`;
+      document.getElementById("res-score-p3").innerText = `${scoreP3.toFixed(2)} / 2.0`;
+      document.getElementById("res-score-p4").innerText = essaySubmitted ? `Đã nộp (${imageCount} ảnh)` : "Chưa nộp ảnh";
+
+      document.getElementById("res-total-score").innerText = `${objectiveScore} / 7.0 TN`;
+
+      let evalText = "";
+      if (objectiveScore >= 6.0) {
+        evalText = "🌟 <strong>Xuất sắc!</strong> Em nắm rất vững kiến thức và kỹ năng đọc đồ thị Vật lí 10 Đề 2. Hãy tự tin chờ kết quả chấm ảnh tự luận của giáo viên nhé!";
+      } else if (objectiveScore >= 4.5) {
+        evalText = "👍 <strong>Khá tốt!</strong> Em đã đạt điểm an toàn ở phần trắc nghiệm. Hãy xem lại các câu đồ thị v - t và d - t bên dưới để hoàn thiện hơn.";
+      } else {
+        evalText = "💪 <strong>Cần cố gắng thêm!</strong> Em cần chú ý phân biệt vận tốc trung bình và tốc độ trung bình, cách tính gia tốc từ đồ thị.";
+      }
+      document.getElementById("res-evaluation").innerHTML = evalText;
+      document.getElementById("res-solutions-container").innerHTML = solutionsHtml;
+
+      document.getElementById("result-modal").classList.remove("hidden");
+      triggerMathRender();
+    }
+
+    function closeModalAndReview() {
+      document.getElementById("result-modal").classList.add("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function copyReport() {
+      const name = document.getElementById("res-name").innerText;
+      const sbd = document.getElementById("res-id").innerText;
+      const p1 = document.getElementById("res-score-p1").innerText;
+      const p2 = document.getElementById("res-score-p2").innerText;
+      const p3 = document.getElementById("res-score-p3").innerText;
+      const p4 = document.getElementById("res-score-p4").innerText;
+      const total = document.getElementById("res-total-score").innerText;
+      const time = document.getElementById("res-timestamp").innerText;
+
+      const text = `KẾT QUẢ KIỂM TRA GIỮA HKI - ĐỀ 2 - VẬT LÍ 10
+Trường THPT Lê Quý Đôn
+Học sinh: ${name} (${sbd})
+${time}
+---------------------------------
+- Điểm Phần I (Trắc nghiệm): ${p1}
+- Điểm Phần II (Đúng/Sai): ${p2}
+- Điểm Phần III (Trả lời ngắn): ${p3}
+- Phần IV (Tự luận): ${p4}
+=> Tổng điểm Trắc nghiệm: ${total}`;
+
+      const temp = document.createElement("textarea");
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand("copy");
+      document.body.removeChild(temp);
+
+      alert("✓ Đã sao chép báo cáo kết quả kiểm tra Đề 2! Em có thể gửi vào nhóm Zalo/Messenger cho thầy cô.");
+    }
+
+    // Khởi chạy khi tài liệu sẵn sàng
+    window.addEventListener("DOMContentLoaded", () => {
+      renderQuiz();
+      startTimer();
+    });
+  </script>
+</body>
+</html>
